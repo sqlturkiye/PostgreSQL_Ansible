@@ -1,0 +1,40 @@
+---
+postgres_url: https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+
+# ------------------------------------------------
+# PostgreSQL veritabanı path i
+# ------------------------------------------------
+postgres_pgdata: /var/lib/pgsql/11/data/
+
+
+# -----------------------------
+# Veritabanı ve Kullanıcı Ayarları
+# -----------------------------
+postgres_init_db_name: sqlturkiye
+postgres_init_user_name: sqlturkiyeUsr
+postgres_init_user_password: sqlturkiyeCom
+
+
+# ------------------------------------------------
+# PostgreSQL Konfigürasyon Dosyası - postgresql.conf
+# ------------------------------------------------
+
+# - Connection Ayarı -
+postgres_conf_max_connections: 100
+
+# - Memory Ayarları-
+postgres_conf_shared_buffers: 512MB
+postgres_conf_work_mem: 32MB
+
+
+# ------------------------------------------------
+# PostgreSQL Konfigürasyon  - pg_hba.conf
+# ------------------------------------------------
+
+postgres_hba_configurations:
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+ - 'local   all             {{ postgres_init_user_name }}           md5'
+ - 'local   all             all                                     peer'
+ - 'host    all             all             0.0.0.0/0               md5'
+ - 'host    all             all             ::0/0                   md5'
+
